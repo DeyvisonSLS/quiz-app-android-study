@@ -1,13 +1,27 @@
 package com.example.truecitizenquiz;
 
+import android.content.Context;
+
 public class Question
 {
+    private Context context;
+
     private int answerResID;
     private String answerText;
     private boolean correctAnswer;
 
-    public Question(int answerResID, boolean correctAnswer)
+    public Question()
     {
+    }
+
+    public Question(Context context)
+    {
+        this.context = context;
+    }
+
+    public Question(Context context, int answerResID, boolean correctAnswer)
+    {
+        this.context = context;
         this.answerResID = answerResID;
         this.correctAnswer = correctAnswer;
     }
@@ -18,12 +32,17 @@ public class Question
         this.correctAnswer = correctAnswer;
     }
 
-    public int getAnswerResID()
+    public String getAnswerText(Context context)
+    {
+        return getAnswerString() != null ? getAnswerString() : getContext().getResources().getString(getAnswerResID());
+    }
+
+    private int getAnswerResID()
     {
         return answerResID;
     }
 
-    public String getAnswerText()
+    private String getAnswerString()
     {
         return answerText;
     }
@@ -41,5 +60,10 @@ public class Question
     public void setCorrectAnswer(boolean correctAnswer)
     {
         this.correctAnswer = correctAnswer;
+    }
+
+    public Context getContext()
+    {
+        return context;
     }
 }

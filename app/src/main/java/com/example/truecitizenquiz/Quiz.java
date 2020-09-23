@@ -1,16 +1,21 @@
 package com.example.truecitizenquiz;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 public class Quiz
 {
+    private Context context;
+
     private String quizName = "Empty";
     private ArrayList<Question> questions = new ArrayList<Question>();
 
     public Quiz(){}
 
-    public Quiz(String quizName, ArrayList<Question> questions)
+    public Quiz(Context context, String quizName, ArrayList<Question> questions)
     {
+        this.context = context;
         this.quizName = quizName;
         this.questions = questions;
     }
@@ -32,14 +37,26 @@ public class Quiz
 
     public void addQuestion(int answerResId, boolean correctAnswer)
     {
-        questions.add(new Question(answerResId, correctAnswer));
+        questions.add(new Question(getContext(), answerResId, correctAnswer));
     }
+
     public void addQuestion(String answerText, boolean correctAnswer)
     {
         questions.add(new Question(answerText, correctAnswer));
     }
+
     public void removeQuestion(Question question)
     {
         questions.remove(question);
+    }
+
+    public void setContext(Context context)
+    {
+        this.context = context;
+    }
+
+    public Context getContext()
+    {
+        return context;
     }
 }

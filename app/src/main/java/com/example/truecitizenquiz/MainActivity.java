@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
@@ -20,9 +19,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button falseButton;
     private TextView questionTextView;
 
-    private NewQuizAboutBrazil newQuiz = new NewQuizAboutBrazil();
-    private Question currentQuestion = newQuiz.getQuestions().get(0);
+    private NewQuizAboutBrazil newQuiz = new NewQuizAboutBrazil(this);
     Iterator<Question> i = newQuiz.getQuestions().iterator();
+    private Question currentQuestion = i.next();
 
 
     @Override
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         falseButton = findViewById(R.id.false_button);
         questionTextView = findViewById(R.id.question_text);
 
-        questionTextView.setText(currentQuestion.getAnswerText());
+        questionTextView.setText(currentQuestion.getAnswerText(this));
         trueButton.setOnClickListener(this);
         falseButton.setOnClickListener(this);
     }
@@ -78,13 +77,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         if(i.hasNext())
         {
-//            i.next();
-//            Log.d(TAG, i.next().toString());
             currentQuestion = i.next();
 
-            Log.d(TAG, "currentQuestion: " + currentQuestion.getAnswerText());
-            
-            questionTextView.setText(currentQuestion.getAnswerText());
+            //  It needs to be done inside the method that should return the string
+
+
+            questionTextView.setText(currentQuestion.getAnswerText(this));
         }
         else
         {
